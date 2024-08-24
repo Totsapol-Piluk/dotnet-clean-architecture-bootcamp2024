@@ -12,8 +12,27 @@ using System.Threading.Tasks;
 namespace Persistence.Repositories {
     public class CategoryRepository : ICategoryRepository {
         protected readonly ApplicationDbContext dbContext;
+
+        public CategoryRepository(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
         public async Task<Category> GetByIdAsync(Guid id) {
             return await dbContext.Categories.FirstOrDefaultAsync(f => f.Id == id);
+        }
+
+        public async Task<List<Category>> GetAllCategories()
+        {
+            var result = await dbContext.Categories.AsNoTracking().ToListAsync();
+            return result;
+        }
+
+        public async Task<Category> CreateAsync(Category category)
+        {
+            dbContext.Categories.Add(category);
+            await dbContext.SaveChangesAsync();
+
+            return category;
         }
     }
 }

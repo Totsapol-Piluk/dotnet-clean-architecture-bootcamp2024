@@ -16,6 +16,7 @@ namespace Persistence.DatabaseContext {
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Category> BlogPosts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
