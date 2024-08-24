@@ -11,5 +11,6 @@ namespace Application.Contracts.Persistence {
         Task<List<Category>> GetAllCategories();
         Task<Category> CreateAsync(Category category);
         Task<Category> UpdateAsync(Category catgory);
+        Task<Category> DeleteAsync(Guid id);
     }
 }

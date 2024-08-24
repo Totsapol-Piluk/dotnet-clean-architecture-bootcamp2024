@@ -5,6 +5,7 @@ using Application.Models;
 using AutoMapper;
 using Application.Features.Catagories.Commands.CreateCategory;
 using Application.Features.Catagories.Commands.UpdateCategory;
+using Application.Features.Catagories.Commands.DeleteCategory;
 
 namespace API.Controllers {
     [Route("api/[controller]")]
@@ -24,6 +25,7 @@ namespace API.Controllers {
             var categories = await mediator.Send(new GetAllCategoriesQuery());
             
             var result = mapper.Map<List<CategoryDto>>(categories);
+
             return Ok(result);
         }
 
@@ -45,6 +47,18 @@ namespace API.Controllers {
             var command = new UpdateCategoryCommand()
             {
                 request = request,
+                Id = id
+            };
+
+            var result = await mediator.Send(command);
+
+            return Ok(result);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteCategory([FromRoute] Guid id, [FromBody] UpdateCategoryRequestDto request)
+        {
+            var command = new DeleteCategoryCommand() {
                 Id = id
             };
 
