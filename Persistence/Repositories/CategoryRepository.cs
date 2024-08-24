@@ -34,5 +34,21 @@ namespace Persistence.Repositories {
 
             return category;
         }
+
+        public async Task<Category> UpdateAsync(Category category)
+        {
+            var categoryDb = await dbContext.Categories.Where(w => w.Id == category.Id).FirstOrDefaultAsync();
+
+            if (categoryDb == null) return null;
+
+            categoryDb.Name = category.Name;
+            categoryDb.UrlHandle = category.UrlHandle;
+
+            await dbContext.SaveChangesAsync();
+
+            return categoryDb;
+        }
+
+
     }
 }

@@ -4,6 +4,7 @@ using Application.Features.Catagories.Queries.GetAllCatagories;
 using Application.Models;
 using AutoMapper;
 using Application.Features.Catagories.Commands.CreateCategory;
+using Application.Features.Catagories.Commands.UpdateCategory;
 
 namespace API.Controllers {
     [Route("api/[controller]")]
@@ -21,9 +22,9 @@ namespace API.Controllers {
         [HttpGet]
         public async Task<IActionResult> GetAllCatagories() {
             var categories = await mediator.Send(new GetAllCategoriesQuery());
-
+            
             var result = mapper.Map<List<CategoryDto>>(categories);
-            return Ok();
+            return Ok(result);
         }
 
         [HttpPost]
@@ -33,6 +34,20 @@ namespace API.Controllers {
             {
                 request = request
             };
+            var result = await mediator.Send(command);
+
+            return Ok(result);
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateCategory([FromRoute] Guid id, [FromBody]  UpdateCategoryRequestDto request)
+        {
+            var command = new UpdateCategoryCommand()
+            {
+                request = request,
+                Id = id
+            };
+
             var result = await mediator.Send(command);
 
             return Ok(result);
