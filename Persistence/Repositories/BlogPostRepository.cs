@@ -1,5 +1,6 @@
 ﻿using Application.Contracts.Persistence;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Persistence.DatabaseContext;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,12 @@ namespace Persistence.Repositories
             await dbContext.SaveChangesAsync();
 
             return new BlogPost();
+        }
+
+        public async Task<List<BlogPost>> GetAllBlogPosts()
+        {
+            var blogposts = await dbContext.BlogPosts.AsNoTracking().Include(i => i.Categories).ToListAsync();
+            return blogposts;
         }
     }
 }

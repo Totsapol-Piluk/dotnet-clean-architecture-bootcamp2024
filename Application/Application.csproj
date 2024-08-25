@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\BlogPost\Queries\" />
     <Folder Include="Features\Catagories\Queries\GetCategoriesById\" />
   </ItemGroup>
 
