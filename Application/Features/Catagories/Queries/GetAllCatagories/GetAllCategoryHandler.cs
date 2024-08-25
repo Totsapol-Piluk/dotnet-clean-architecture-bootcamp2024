@@ -23,13 +23,11 @@ namespace Application.Features.Catagories.Queries.GetAllCatagories
 
         public async Task<List<CategoryDto>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
         {
-
             var categories = await categoryRepository.GetAllCategories();
 
             var result = mapper.Map<List<CategoryDto>>(categories);
 
-
-            throw new NotImplementedException();
+            return result;
         }
     }
 }
