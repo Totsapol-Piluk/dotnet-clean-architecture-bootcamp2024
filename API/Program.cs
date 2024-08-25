@@ -1,4 +1,5 @@
 using Application;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
 using Persistence;
 using System.Reflection;
@@ -9,12 +10,18 @@ var configuration = builder.Configuration;
 // Add services to the container.
 builder.Services.AddApplicationService();
 builder.Services.AddPersistenceService(configuration["ConnectionStrings:bootcampDatabase"]);
+builder.Services.AddDataProtection();
 
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+// Register Identity services
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddDefaultTokenProviders();
 
 var app = builder.Build();
 
