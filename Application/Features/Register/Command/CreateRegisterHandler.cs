@@ -29,7 +29,7 @@ namespace Application.Features.Register.Command
             if(identityResult.Succeeded is false) return false;
 
             identityResult = await userManager.AddToRolesAsync(user, ["Reader", "Writer"]);
-            if(identityResult.Succeeded) return false;
+            if (identityResult.Succeeded) return true;
 
             throw new NotImplementedException();
         }
