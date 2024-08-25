@@ -21,6 +21,7 @@ namespace Application {
 
         public static IMapperConfigurationExpression AddProfileRegistration(this IMapperConfigurationExpression mapper) {
             mapper.AddProfile<CategoryProfile>();
+            mapper.AddProfile<BlogPostProfile>();
             return mapper;
         }
     }
