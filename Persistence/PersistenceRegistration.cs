@@ -28,6 +28,8 @@ namespace Persistence
 
         public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services)
         {
+
+            services.AddDataProtection();
             services.AddIdentityCore<IdentityUser>()
                 .AddRoles<IdentityRole>()
                 .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("bootcamp")

@@ -2,6 +2,7 @@ using Application;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
 using Persistence;
+using System.ComponentModel;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,9 @@ var configuration = builder.Configuration;
 // Add services to the container.
 builder.Services.AddApplicationService();
 builder.Services.AddPersistenceService(configuration["ConnectionStrings:bootcampDatabase"]);
-builder.Services.AddDataProtection();
+
+
+
 
 
 builder.Services.AddControllers();
@@ -18,15 +21,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-// Register Identity services
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddDefaultTokenProviders();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) {
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
 }
