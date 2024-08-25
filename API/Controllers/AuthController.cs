@@ -1,4 +1,5 @@
-﻿using Application.Features.Register.Command;
+﻿using Application.Features.Auth.Queries.GetTokenJwt;
+using Application.Features.Register.Command;
 using Application.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,13 @@ namespace API.Controllers
         public async Task<IActionResult> Register(RegisterRequestDto registerModel)
         {
             var result = await mediator.Send(new CreateAccountCommand { RegisterModel = registerModel });
+            return Ok(result);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LogginRequestDto request)
+        {
+            var result = await mediator.Send(new GetTokenJwtQuery { Email = request.Email, Password = request.Password });
             return Ok(result);
         }
     }

@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Catagories\Queries\GetCategoriesById\" />
+    <Folder Include="Features\Loggin\Command\" />
   </ItemGroup>
 
 </Project>

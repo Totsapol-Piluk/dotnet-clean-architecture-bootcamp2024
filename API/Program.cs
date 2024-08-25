@@ -1,6 +1,8 @@
 using Application;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
 using Persistence;
 using System.ComponentModel;
 using System.Reflection;
@@ -12,7 +14,20 @@ var configuration = builder.Configuration;
 builder.Services.AddApplicationService();
 builder.Services.AddPersistenceService(configuration["ConnectionStrings:bootcampDatabase"]);
 
-
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        AuthenticationType = "Jwt",
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = configuration["Jwt:Issuer"],
+                        ValidAudience = configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                    };
+                });
 
 
 
@@ -38,6 +53,7 @@ app.UseCors(options => {
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseStaticFiles(new StaticFileOptions

@@ -6,6 +6,7 @@ using AutoMapper;
 using Application.Features.Catagories.Commands.CreateCategory;
 using Application.Features.Catagories.Commands.UpdateCategory;
 using Application.Features.Catagories.Commands.DeleteCategory;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers {
     [Route("api/[controller]")]
@@ -21,6 +22,7 @@ namespace API.Controllers {
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllCatagories() {
             var categories = await mediator.Send(new GetAllCategoriesQuery());
             
