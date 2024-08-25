@@ -21,9 +21,9 @@ namespace API.Controllers
         public async Task<IActionResult> UploadImage([FromForm] IFormFile file,
             [FromForm] string fileName, [FromForm] string title)
         {
-            await mediator.Send(new UploadImageCommand { File = file, FileName = fileName, Title = title });
+            var result = await mediator.Send(new UploadImageCommand { File = file, FileName = fileName, Title = title });
 
-            return Ok();
+            return Ok(result);
         }
     }
 }
