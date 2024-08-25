@@ -15,13 +15,16 @@ namespace Application.Features.Catagories.Commands.UpdateCategory
         private readonly ICategoryRepository categoryRepository;
         private readonly IMapper mapper;
 
-        public UpdateCategoryHandler(ICategoryRepository categoryRepository, IMapper mapper) {
+        public UpdateCategoryHandler(ICategoryRepository categoryRepository, IMapper mapper)
+        {
             this.categoryRepository = categoryRepository;
             this.mapper = mapper;
         }
 
-        public async Task<CategoryDto> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken) {
+        public async Task<CategoryDto> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
+        {
             var categoryUpdateModel = mapper.Map<Domain.Entities.Category>(request.request);
+            categoryUpdateModel.Id = request.Id;
 
             var result = await categoryRepository.UpdateAsync(categoryUpdateModel);
 
