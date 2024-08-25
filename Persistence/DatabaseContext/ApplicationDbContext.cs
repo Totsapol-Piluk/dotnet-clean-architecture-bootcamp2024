@@ -17,11 +17,15 @@ namespace Persistence.DatabaseContext {
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<BlogPost> BlogPosts { get; set; }
+        public DbSet<BlogImage> BlogImage { get; set; }
+        //public DbSet<BlogImage> BlogImages { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             modelBuilder.Entity<BlogPost>(e => e.ToTable("BlogPost"));
             modelBuilder.Entity<Category>(e => e.ToTable("Category"));
+            modelBuilder.Entity<BlogImage>(e => e.ToTable("BlogImage"));
             base.OnModelCreating(modelBuilder);
         }
 

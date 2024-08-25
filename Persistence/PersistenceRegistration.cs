@@ -12,7 +12,8 @@ namespace Persistence {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IBlogPostRepository, BlogPostRepository>();  
+            services.AddScoped<IBlogPostRepository, BlogPostRepository>();
+            services.AddScoped<IBlogImageRepository, BlogImageRepository>();
 
             return services;
         }
